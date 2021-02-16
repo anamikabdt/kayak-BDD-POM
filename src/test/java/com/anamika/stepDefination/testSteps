@@ -1,0 +1,73 @@
+package com.anamika.stepDefination;
+
+import com.anamika.Utilities.TestBase;
+import com.anamika.kayakPO.poKayak;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.*;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class steps extends TestBase {
+    public poKayak kayak;
+    WebDriver driver;
+
+    Logger log = Logger.getLogger(getClass().getSimpleName());
+
+    @Before
+    public void settingUpEnvironment() throws Exception {
+        sErrorMessage = "";
+        sClassNameForScreenShot = getClass().getSimpleName();
+        TriggerDependencies();
+        TestBase.driver.get(oCons.getAppURL());
+        kayak = new poKayak(TestBase.driver);
+
+    }
+    @After
+    public void close() throws Exception {
+        ShuttingDownAllDependencies();
+    }
+
+
+    @Given("User goes to Kayak site")
+    public void user_goes_to_kayak_site() throws Exception {
+        System.out.println("test");
+    }
+
+    @When("User clicks on Flights link")
+    public void user_clicks_on_flights_link() throws Exception {
+        kayak.clickOnFligths();
+    }
+
+    @When("User enters From airport")
+    public void user_enters_from_airport() throws Exception {
+        kayak.enterFrom("SAN");
+        kayak.nearbyFrom();
+    }
+
+    @When("User enters To airport")
+    public void user_enters_to_airport() throws Exception {
+        kayak.enterTo("NYC");
+       kayak.nearbyTo();
+
+    }
+
+    @When("User enters date")
+    public void user_enters_date() throws Exception {
+        kayak.enterDate("04/2/2021","06/9/2021");
+    }
+
+    @When("User clicks on search button")
+    public void user_clicks_on_search_button() throws Exception {
+        kayak.kSearch();
+
+    }
+
+    @Then("Result pane is displayed and first one selected")
+    public void result_pane_is_displayed_and_first_one_selected() throws Exception {
+       kayak.result("SAN");
+    }
+}

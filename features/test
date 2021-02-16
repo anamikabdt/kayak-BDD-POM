@@ -1,0 +1,9 @@
+Feature: Kayak Search
+  Scenario: User makes a Search
+    Given User goes to Kayak site
+    When  User clicks on Flights link
+    And User enters From airport
+    And User enters To airport
+    And User enters date
+    And User clicks on search button
+    Then Result pane is displayed and first one selected
